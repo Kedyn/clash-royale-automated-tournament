@@ -1,14 +1,21 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import HomePage from "./components/HomePage";
+import React, { Component } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <HomePage data={{ name: "xd", num: 2 }} />
-    </div>
-  );
+import NotFoundPage from "components/pages/NotFoundPage";
+import HomePage from "components/pages/HomePage";
+
+export default class App extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        {/* Add navbar here */}
+
+        <Switch>
+          <Route path="/not-found" component={NotFoundPage} />
+          <Route path="/" exact component={HomePage} />
+          <Redirect to="/not-found" />
+        </Switch>
+      </React.Fragment>
+    );
+  }
 }
-
-export default App;
