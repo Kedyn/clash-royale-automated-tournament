@@ -10,7 +10,7 @@ export default class HomePage extends Component {
   }
 
   componentDidMount() {
-    this.setState({ view: "nothome" });
+    this.setState({ view: "xd" });
   }
 
   render() {
