@@ -4,17 +4,6 @@
   flex-direction: column;
 }
 
-.match {
+.round {
   width: 160px;
-}
-
-.player {
-  background-color: #fff;
-  opacity: 0.75;
-  padding: 2px 4px;
-  margin: 2px 0;
-}
-
-.current-round > .match > .player {
-  opacity: 1;
 }
