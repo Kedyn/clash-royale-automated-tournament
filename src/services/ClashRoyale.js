@@ -14,7 +14,7 @@ export function testingAxios() {
 }
 
 // Gets the last few games that the player has recently played, defaulted to kaine's username
-export function getPlayerGames(playerName = "L8PYR99VP") {
+export function getPlayerGames(playerName) {
   // will return a promise so that we can use .then for success and .catch for errors
   return new Promise((resolve, reject) => {
     // https://cors-anyware... is a solution to a CORS requirement that the api was having
@@ -34,12 +34,34 @@ export function getPlayerGames(playerName = "L8PYR99VP") {
   });
 }
 
-export function parseGameInfo() {
+export function parseGameInfo(playerName  = "L8PYR99VP") {
   // the following will return an array, there fore we can use .forEach (a for loop) to get each element
-  getPlayerGames().then(battles => {
+  getPlayerGames(playerName).then(battles => {
+    var info = []
+
     battles.forEach((battle, index) => {
+      var battlestuff = []
       console.log("Battle " + (index + 1) + ":");
-      console.log(battle);
-    });
-  });
-}
+      if (true) {console.log(battle);}
+
+        for (var key in battle) {
+        
+          if (key === "utcTime") {
+            battlestuff.unshift(battle[key])
+          }
+          if (key === "team" || key === "opponent") {  
+            for (var key2 in battle[key][0]) {
+              if (key2 === "name") {
+                battlestuff.push(battle[key][0][key2])
+              }
+            }
+          }
+          if (key === "opponentCrowns" || key === "teamCrowns") {
+            battlestuff.push(battle[key])
+          }
+        } //End of battle's main sections
+      info.push(battlestuff)
+      }); //End of recent battle's
+  console.log(info)
+  }); // End of getPlayerGames()
+} // End of Function

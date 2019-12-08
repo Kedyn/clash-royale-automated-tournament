@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "styles/home.css";
 
+import { parseGameInfo } from "services/ClashRoyale";
+import { registerUser, registerTourn, getBDInfo } from "services/user";
 
 export default class HomePage extends Component {
 
@@ -14,11 +16,13 @@ export default class HomePage extends Component {
 
   render() {
 
+    // parseGameInfo()
+    // registerUser("random@yahoo.com", "password13")
+    // registerTourn("testTourn1", "BraggingRights", "04:19", "google.com")
+    getBDInfo("tourn", "xXzzHV7fEccpZlEV6d5T")
+
     return <div>
       <div className ="back">
-      
-     
-
       <div className = "log">
       <div style={{ textAlign: 'center' }}>
         <div>
