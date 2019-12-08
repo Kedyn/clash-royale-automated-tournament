@@ -12,14 +12,13 @@ export default class App extends Component {
   render() {
     return (
       <React.Fragment>
-        {/* Add navbar here */}
-        <NavigationBar/>
+        <NavigationBar />
 
         <Switch>
           <Route path="/not-found" component={NotFoundPage} />
           <Route path="/tournament/:id" component={TournamentPage} />
           <Route path="/" exact component={HomePage} />
-          <Route path="/register" component={RegisterPage}/>
+          <Route path="/register" component={RegisterPage} />
           <Redirect to="/not-found" />
         </Switch>
       </React.Fragment>
