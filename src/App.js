@@ -5,6 +5,8 @@ import NotFoundPage from "components/pages/NotFoundPage";
 import HomePage from "components/pages/HomePage";
 import TournamentPage from "components/pages/tournament/TournamentPage";
 
+import TournMaker from "components/pages/TournMaker";
+
 import NavigationBar from "./components/layout/NavigationBar";
 
 export default class App extends Component {
@@ -17,6 +19,7 @@ export default class App extends Component {
           <Route path="/not-found" component={NotFoundPage} />
           {/* Add Route to pages here */}
           <Route path="/tournament/:id" component={TournamentPage} />
+          {/* <Route path="/" exact component={TournMaker} /> */}
           <Route path="/" exact component={HomePage} />
           <Redirect to="/not-found" />
         </Switch>
