@@ -38,7 +38,7 @@ export default class HomePage extends Component {
       
     </div>;
 
-    return <div>Home page</div>;
+   
 
   }
 }
