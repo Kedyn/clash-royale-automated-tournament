@@ -44,7 +44,7 @@ export default class NavigationBar extends Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="m1-auto">
+            <Nav className="ml-auto">
               {/* <Nav.Link onClick= {this.showHomepage}>Homepage</Nav.Link> */}
               {/* <Nav.Link onClick = {this.showCreateEvent}>Create Event</Nav.Link> */}
               <Nav.Link onClick={this.showLogin}>Login</Nav.Link>
