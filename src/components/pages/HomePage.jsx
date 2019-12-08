@@ -13,6 +13,7 @@ export default class HomePage extends Component {
   }
 
   render() {
+
     return <div>
       <div className ="back">
       
@@ -36,6 +37,9 @@ export default class HomePage extends Component {
       </div>
       
     </div>;
+
+    return <div>Home page</div>;
+
   }
 }
 
