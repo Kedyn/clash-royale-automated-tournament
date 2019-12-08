@@ -29,7 +29,8 @@ export default class NavigationBar extends Component {
 
   render() {
     // const { showHomepage, showCreateEvent, showLogin, showRegister} = this.state;
-    const { showLogin } = this.state;
+    //const { showLogin } = this.state;
+
     return (
       <React.Fragment>
         <Navbar
