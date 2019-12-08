@@ -15,6 +15,7 @@ export default class App extends Component {
 
         <Switch>
           <Route path="/not-found" component={NotFoundPage} />
+          {/* Add Route to pages here */}
           <Route path="/tournament/:id" component={TournamentPage} />
           <Route path="/" exact component={HomePage} />
           <Redirect to="/not-found" />
