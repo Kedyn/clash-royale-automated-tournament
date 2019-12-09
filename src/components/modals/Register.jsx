@@ -59,10 +59,10 @@ export default class Register extends Component {
     }
 
     if (!tag.value) {
-      errors.tag = "Please enter your full name.";
+      errors.tag = "Please enter your player tag.";
     } else {
       if (!/^[a-zA-Z0-9]{5,}$/.test(tag.value)) {
-        errors.tag = "Please enter your tag (without the #).";
+        errors.tag = "Please enter your player tag (without the #).";
       } else {
         tag.setCustomValidity("");
       }
