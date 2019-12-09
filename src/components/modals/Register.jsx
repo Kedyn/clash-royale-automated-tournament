@@ -81,9 +81,9 @@ export default class Register extends Component {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      const { fullname, email, tag } = form;
+      const { email, password, tag } = form;
 
-      registerUser(fullname.value, email.value, tag.value)
+      registerUser(email.value, password.value, tag.value)
         .then(() => {
           this.props.onClose(true);
         })
@@ -98,9 +98,9 @@ export default class Register extends Component {
       validated: false,
       checking: false,
       error: "",
-      fullname: "",
       email: "",
-      password: ""
+      password: "",
+      tag: ""
     });
 
     this.props.onClose(false);
