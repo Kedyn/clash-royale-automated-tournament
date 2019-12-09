@@ -1,7 +1,9 @@
 import firebase from "services/firebaseService";
 
+let user = null;
+
 export function getCurrentUser() {
-  return firebase.auth().currentUser;
+  return user;
 }
 
 export function registerUser(email, password, tag = "L8PYR99VP") {
@@ -39,42 +41,46 @@ export function registerUser(email, password, tag = "L8PYR99VP") {
   });
 }
 
-export function registerTourn(tourn_title, tourn_prize, tourn_time, tourn_url) {
-  firebase
-    .firestore()
-    .collection("tourn")
-    .doc()
-    .set({
-      title: tourn_title,
-      prize: tourn_prize,
-      time: tourn_time,
-      url: tourn_url
-  })
-  .then(function() {
-      console.log("Document successfully written!");
-  })
-  .catch(function(error) {
-      console.error("Error writing document: ", error);
+export function login(email, password) {
+  return new Promise((resolve, reject) => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        let current_user = firebase.auth().getCurrentUser;
+
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(current_user.uid)
+          .get()
+          .then(doc => {
+            user = { ...doc.data(), ...current_user };
+
+            resolve();
+          })
+          .catch(err => {
+            reject(err.message);
+          });
+      })
+      .catch(err => {
+        reject(err.message);
+      });
   });
 }
 
-export function getBDInfo(folder="tourn", id="ad") {
-  firebase
-    .firestore()
-    .collection(folder)
-    .doc(id)
-    .get()
-    .then(info => {
-      if (!info.exists) {
-        console.log('No such document!');
-      } 
-      else {
-        console.log('Document data:', info.data());
-      }
-    })
+export function signOut() {
+  return new Promise((resolve, reject) => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        user = null;
+
+        resolve();
+      })
       .catch(err => {
-        console.log('Error getting document', err);
-
-    });
-
+        reject(err);
+      });
+  });
 }

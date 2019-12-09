@@ -1,49 +1,69 @@
 import React, { Component } from "react";
+import { Container, Button } from "react-bootstrap";
+import { getCurrentUser } from "services/user";
+
+import Register from "components/modals/Register";
+
 import "styles/home.css";
 
-import { parseGameInfo } from "services/ClashRoyale";
-import { registerUser, registerTourn, getBDInfo } from "services/user";
+//import { parseGameInfo } from "services/ClashRoyale";
+//import { registerUser, registerTourn, getBDInfo } from "services/user";
 
 export default class HomePage extends Component {
+  constructor(props) {
+    super(props);
 
-  signUp() {
-    //register function to button
+    this.state = {
+      showRegister: false
+    };
   }
 
-  login() {
-   //login button function to button
+  showRegister() {
+    this.setState({ showRegister: true });
+  }
+
+  hideRegister(registered) {
+    if (registered) {
+      this.props.history.push("/tournaments");
+    }
+
+    this.setState({ showRegister: false });
+  }
+
+  handleGetStarted() {
+    if (getCurrentUser()) {
+      this.props.history.push("/tournaments");
+    } else {
+      this.showRegister();
+    }
   }
 
   render() {
+    const { showRegister } = this.state;
 
-    // parseGameInfo()
-    // registerUser("random@yahoo.com", "password13")
-    // registerTourn("testTourn1", "BraggingRights", "04:19", "google.com")
-    getBDInfo("tourn", "xXzzHV7fEccpZlEV6d5T")
-
-    return <div>
-      <div className ="back">
-      <div className = "log">
-      <div style={{ textAlign: 'center' }}>
-        <div>
-          <div>Email</div>
-          <input id="email" placeholder="Enter Email.." type="text"/>
+    return (
+      <React.Fragment>
+        <div className="flex-fill d-flex align-items-center home">
+          <Container className="text-center">
+            <h1 className="text-white">Clash Royale Automated Tournament</h1>
+            <div className="mb-5 text-white">
+              Are you competitive?
+              <br />
+              Think you can be the next campion?
+              <br />
+              Join the battle to find out who is the best player.
+            </div>
+            <Button className="px-5" onClick={() => this.handleGetStarted()}>
+              Get Started
+            </Button>
+          </Container>
         </div>
-        <div>
-          <div>Password</div>
-          <input id="password" placeholder="Enter Password.." type="text"/>
-        </div>
-        <button style={{margin: '10px'}} onClick={this.login}>Login</button>
-        <button style={{margin: '10px'}} onClick={this.signUp}>Register</button>
-      </div>
-      </div>
 
-      </div>
-      
-    </div>;
-
-   
-
+        <Register
+          show={showRegister}
+          onClose={registered => this.hideRegister(registered)}
+        />
+      </React.Fragment>
+    );
   }
 }
-

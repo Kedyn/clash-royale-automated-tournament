@@ -1,9 +1,20 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withRouter } from "react-router";
 import { NavLink } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
-// import RegisterPage from "components/pages/RegisterPage";
+import { getCurrentUser, signOut } from "services/user";
 
-export default class NavigationBar extends Component {
+import Login from "components/modals/Login";
+import Register from "components/modals/Register";
+
+class NavigationBar extends Component {
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  };
+
   constructor(props) {
     super(props);
 
@@ -13,23 +24,68 @@ export default class NavigationBar extends Component {
     };
   }
 
-  showLogin = () => {
+  showLogin() {
     this.setState({ showLogin: true });
-  };
-  hideLogin = () => {
-    this.setState({ showLogin: false });
-  };
+  }
 
-  showRegister = () => {
+  hideLogin(loggedin) {
+    if (loggedin) {
+      this.props.history.push("/account");
+    }
+
+    this.setState({ showLogin: false });
+  }
+
+  showRegister() {
     this.setState({ showRegister: true });
-  };
-  hideRegister = () => {
+  }
+
+  hideRegister(registered) {
+    if (registered) {
+      this.props.history.push("/account");
+    }
+
     this.setState({ showRegister: false });
-  };
+  }
+
+  singOut() {
+    signOut().then(() => {
+      this.props.history.push("/");
+    });
+  }
 
   render() {
-    // const { showHomepage, showCreateEvent, showLogin, showRegister} = this.state;
-    //const { showLogin } = this.state;
+    const { showLogin, showRegister } = this.state;
+
+    if (getCurrentUser()) {
+      return (
+        <React.Fragment>
+          <Navbar
+            expand="md"
+            className="text-uppercase"
+            bg="primary"
+            variant="dark"
+          >
+            <Navbar.Brand as={NavLink} exact to="/">
+              Room Finder
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="ml-auto">
+                <Nav.Link as={NavLink} to="/listings">
+                  Listings
+                </Nav.Link>
+                <Nav.Link as={NavLink} to="/account">
+                  Account
+                </Nav.Link>
+                <Nav.Link onClick={() => this.singOut()}>Sign Out</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+        </React.Fragment>
+      );
+    }
 
     return (
       <React.Fragment>
@@ -40,23 +96,29 @@ export default class NavigationBar extends Component {
           variant="dark"
         >
           <Navbar.Brand as={NavLink} exact to="/">
-            C.R.A.T.
+            Room Finder
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ml-auto">
-              {/* <Nav.Link onClick= {this.showHomepage}>Homepage</Nav.Link> */}
-              {/* <Nav.Link onClick = {this.showCreateEvent}>Create Event</Nav.Link> */}
-              <Nav.Link onClick={this.showLogin}>Login</Nav.Link>
-              <Nav.Link onClick={this.showRegister}>Register</Nav.Link>
+              <Nav.Link onClick={() => this.showLogin()}>Login</Nav.Link>
+              <Nav.Link onClick={() => this.showRegister()}>Register</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
 
-        {/* <RegisterPage show ={showRegister} onClose={this.hideRegister}/> */}
-        {/* <Login show ={showLogin} onClose={this.hideLogin}/> */}
+        <Login
+          show={showLogin}
+          onClose={loggedin => this.hideLogin(loggedin)}
+        />
+        <Register
+          show={showRegister}
+          onClose={registered => this.hideRegister(registered)}
+        />
       </React.Fragment>
     );
   }
 }
+
+export default withRouter(NavigationBar);
