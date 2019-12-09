@@ -6,8 +6,8 @@ import Register from "components/modals/Register";
 
 import "styles/home.css";
 
-//import { parseGameInfo } from "services/ClashRoyale";
-//import { registerUser, registerTourn, getBDInfo } from "services/user";
+import { parseGameInfo } from "services/ClashRoyale";
+import { registerUser, registerTourn, getBDInfo, addPlayerToTourn, checkWinner } from "services/tournament";
 
 export default class HomePage extends Component {
   constructor(props) {
@@ -39,6 +39,7 @@ export default class HomePage extends Component {
   }
 
   render() {
+  checkWinner("L8PYR99VP", "L9QCPVCPJ")
     const { showRegister } = this.state;
 
     return (
