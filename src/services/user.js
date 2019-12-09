@@ -20,6 +20,7 @@ export function registerUser(email, password, tag = "L8PYR99VP") {
             tag
           })
           .then(() => {
+            user = { ...firebase.auth().getCurrentUser, tag };
             resolve();
           })
           .catch(err => {
@@ -46,16 +47,16 @@ export function login(email, password) {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        let current_user = firebase.auth().getCurrentUser;
+      .then(data => {
+        console.log(data.user);
 
         firebase
           .firestore()
           .collection("users")
-          .doc(current_user.uid)
+          .doc(data.user.uid)
           .get()
           .then(doc => {
-            user = { ...doc.data(), ...current_user };
+            user = { ...doc.data(), ...data.user };
 
             resolve();
           })

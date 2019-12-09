@@ -5,7 +5,7 @@ import NotFoundPage from "components/pages/NotFoundPage";
 import HomePage from "components/pages/HomePage";
 import TournamentPage from "components/pages/tournament/TournamentPage";
 
-import TournMaker from "components/pages/TournMaker";
+//import TournMaker from "components/pages/TournMaker";
 
 import NavigationBar from "./components/layout/NavigationBar";
 

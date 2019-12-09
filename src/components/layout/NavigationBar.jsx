@@ -73,8 +73,8 @@ class NavigationBar extends Component {
 
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="ml-auto">
-                <Nav.Link as={NavLink} to="/listings">
-                  Listings
+                <Nav.Link as={NavLink} to="/tournaments">
+                  Tournaments
                 </Nav.Link>
                 <Nav.Link as={NavLink} to="/account">
                   Account
@@ -102,6 +102,9 @@ class NavigationBar extends Component {
 
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ml-auto">
+              <Nav.Link as={NavLink} to="/tournaments">
+                Tournaments
+              </Nav.Link>
               <Nav.Link onClick={() => this.showLogin()}>Login</Nav.Link>
               <Nav.Link onClick={() => this.showRegister()}>Register</Nav.Link>
             </Nav>
