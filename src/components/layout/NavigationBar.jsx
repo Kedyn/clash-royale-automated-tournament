@@ -30,7 +30,7 @@ class NavigationBar extends Component {
 
   hideLogin(loggedin) {
     if (loggedin) {
-      this.props.history.push("/account");
+      this.props.history.push("/tournaments");
     }
 
     this.setState({ showLogin: false });
@@ -42,7 +42,7 @@ class NavigationBar extends Component {
 
   hideRegister(registered) {
     if (registered) {
-      this.props.history.push("/account");
+      this.props.history.push("/tournaments");
     }
 
     this.setState({ showRegister: false });
