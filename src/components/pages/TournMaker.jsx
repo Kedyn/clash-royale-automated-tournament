@@ -1,44 +1,141 @@
-
+import { Modal, Form, Row, Col, Button, Spinner } from "react-bootstrap";
 import React, { Component } from "react";
 import "styles/tournmaker.css";
 
 import { parseGameInfo } from "services/ClashRoyale";
-import { registerUser, registerTourn, getBDInfo } from "services/user";
+import { registerTourn } from "services/tournament";
 
 //PUT registerTourn function in place of this.login to this.registerTourn in button below
 
 export default class TournMaker extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tourn_title: "",
+      tourn_prize: "",
+      tourn_time: "",
+      tourn_url: ""
+    };
+  }
+
+  handleSubmit(event) {
+    //event.preventDefault();
+
+    const form = event.target;
+
+  
+      const { tourn_title, tourn_prize, tourn_time, tourn_url } = form;
+
+      registerTourn(tourn_title.value, tourn_prize.value, tourn_time.value, tourn_url.value)
+        .then(() => {
+          this.props.onClose(true);
+        })
+        .catch(err => {
+          this.setState({ error: err });
+        });
+    
+  }
+
   render() {
     return <div>
 
 <div className ="tback">
-      <div className = "regtourn">
+      <form onSubmit={event => this.handleSubmit(event)}>
       <div style={{ textAlign: 'center' }}>
         <div>
             
           <div>Tournament Name</div>
-          <input id="tourn_name" placeholder="Enter Tournament Name" type="text"/>
+          <Form.Control
+                  
+                  placeholder="tournament title"
+                  name="tourn_title"
+                  required
+                />
         </div>
         <div>
           <div>Prize</div>
-          <input id="tourn_prize" placeholder="Enter Prize.." type="text"/>
+          <Form.Control
+                  
+                  placeholder="tournament prize"
+                  name="tourn_prize"
+                  required
+                />
         </div>
         <div>
           <div>Time of Tournament</div>
-          <input id="tourn_time" placeholder="Enter Time.." type="text"/>
+          <Form.Control
+                  
+                  placeholder="tournament time"
+                  name="tourn_time"
+                  required
+                />
         </div>
         <div>
           <div>URL</div>
-          <input id="tourn_url" placeholder="Enter URL.." type="text"/>
+          <Form.Control
+                  
+                  placeholder="tournament URL"
+                  name="tourn_url"
+                  required
+                />
         </div>
-        <button style={{margin: '10px'}} onClick={this.login}>Register</button>   
+        <button style={{margin: '10px'}} onClick={() => this.handleSubmit()}>Register</button>   
        
       </div>
-      </div>
+      </form>
 
       </div>
-
 
     </div>;
   }
 }
+
+
+{/* <div className ="tback">
+      <form onSubmit={event => this.handleSubmit(event)}>
+      <div style={{ textAlign: 'center' }}>
+        <div>
+            
+          <div>Tournament Name</div>
+          <Form.Control
+                  
+                  placeholder="tournament title"
+                  name="tourn_title"
+                  required
+                />
+        </div>
+        <div>
+          <div>Prize</div>
+          <Form.Control
+                  
+                  placeholder="tournament prize"
+                  name="tourn_prize"
+                  required
+                />
+        </div>
+        <div>
+          <div>Time of Tournament</div>
+          <Form.Control
+                  
+                  placeholder="tournament time"
+                  name="tourn_time"
+                  required
+                />
+        </div>
+        <div>
+          <div>URL</div>
+          <Form.Control
+                  
+                  placeholder="tournament URL"
+                  name="tourn_url"
+                  required
+                />
+        </div>
+        <button style={{margin: '10px'}} onClick={() => this.handleSubmit()}>Register</button>   
+       
+      </div>
+      </form>
+
+      </div> */}
+
