@@ -11,3 +11,7 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.round {
+  width: 160px;
+}

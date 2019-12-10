@@ -4,11 +4,6 @@ import { getCurrentUser } from "services/user";
 
 import Register from "components/modals/Register";
 
-import "styles/home.css";
-
-//import { parseGameInfo } from "services/ClashRoyale";
-//import { registerUser, registerTourn, getBDInfo } from "services/user";
-
 export default class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +19,7 @@ export default class HomePage extends Component {
 
   hideRegister(registered) {
     if (registered) {
-      this.props.history.push("/tournaments");
+      this.props.history.push("/account");
     }
 
     this.setState({ showRegister: false });
@@ -32,7 +27,7 @@ export default class HomePage extends Component {
 
   handleGetStarted() {
     if (getCurrentUser()) {
-      this.props.history.push("/tournaments");
+      this.props.history.push("/account");
     } else {
       this.showRegister();
     }

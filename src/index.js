@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import ScrollToTop from "components/utils/ScrollToTop";
 
 import "bootswatch/dist/lux/bootstrap.min.css";
+import "styles/main.css";
 
 import App from "App";
 

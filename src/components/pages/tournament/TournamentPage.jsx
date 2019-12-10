@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Jumbotron, Container, Button } from "react-bootstrap";
 
-import "styles/tournament.css";
 import Bracket from "./Bracket";
 
 export default class TournamentPage extends Component {
