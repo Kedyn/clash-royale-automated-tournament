@@ -62,9 +62,26 @@ export function addPlayerToTourn(tournID = "CL1k1sf3fNOM4pc4GUvV", tag = "L8PYR9
   });
 }
 
+export function getTournaments() {
+  let a = firebase
+    .firestore()
+    .collection("tourn")
+    .get()  
+    .then(info => {
+      info.docs.forEach(doc => {
+        console.log(doc.data());
+      })
+    })
+    .catch(err => {
+      console.log("Error getting document", err);
+    });
+}
+
 export function checkWinner(player1, player2, gameID ="CL1k1sf3fNOM4pc4GUvV") {
   let battle = parseGameInfo(player1);
-  console.log(battle)
+  let a = battle[0].property
+  console.log(a)
+
   
   
   // console.log(battles)
@@ -82,15 +99,7 @@ export function checkWinner(player1, player2, gameID ="CL1k1sf3fNOM4pc4GUvV") {
   //     .then(info => {
   //       if (!info.exists) {
   //         console.log("No such document!");
-  //       } else {
-          
-
-
-        
-        
-        
-        
-        
+  //       } else {     
   //       }
   //     })
   //     .catch(err => {
@@ -114,3 +123,27 @@ export function checkWinner(player1, player2, gameID ="CL1k1sf3fNOM4pc4GUvV") {
   //     });
   // }
 }
+
+export function checkBracketLvl(tournid = "CL1k1sf3fNOM4pc4GUvV") {
+  var lvl = []
+  firebase
+    .firestore()
+    .collection("tourn")
+    .doc(tournid)
+    .get()
+    .then(info => {
+      if (!info.exists) {
+        console.log("No such document!");
+      } else {
+        for (var key in info.data()) {
+          if (key === "tag") {
+            lvl.push(true);
+          }
+        }  
+      }
+    })
+    .catch(err => {
+      console.log("Error getting document", err);
+    });
+    return lvl;
+  }
