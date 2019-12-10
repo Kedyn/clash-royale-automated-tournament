@@ -69,7 +69,22 @@ export function getTournaments() {
     .get()  
     .then(info => {
       info.docs.forEach(doc => {
-        console.log(doc.data());
+        console.log(doc.id, doc.data());
+      })
+    })
+    .catch(err => {
+      console.log("Error getting document", err);
+    });
+}
+
+export function getUserIDs() {
+  let a = firebase
+    .firestore()
+    .collection("users")
+    .get()  
+    .then(info => {
+      info.docs.forEach(doc => {
+        console.log(doc.id, doc.data());
       })
     })
     .catch(err => {
