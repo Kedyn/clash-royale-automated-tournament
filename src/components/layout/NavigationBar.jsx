@@ -7,6 +7,7 @@ import { getCurrentUser, signOut } from "services/user";
 
 import Login from "components/modals/Login";
 import Register from "components/modals/Register";
+import Tournament from "components/modals/Tournament";
 
 class NavigationBar extends Component {
   static propTypes = {
@@ -20,9 +21,23 @@ class NavigationBar extends Component {
 
     this.state = {
       showLogin: false,
-      showRegister: false
+      showRegister: false,
+      showEditTournament: false
     };
   }
+  //-------------------------------------
+  showEditTournament(){
+    // Edit tournament on Tournament page
+    this.setState({showEditTournament:true});
+  }
+  hideEditTournament(edittounament){
+    // Create tournament on Account page
+    if (edittounament){
+      this.props.history.push("/tournment");
+    }
+    this.setState({showEditTournament:false});
+  }
+  //----------------------------------------
 
   showLogin() {
     this.setState({ showLogin: true });
@@ -55,7 +70,7 @@ class NavigationBar extends Component {
   }
 
   render() {
-    const { showLogin, showRegister } = this.state;
+    const { showLogin, showRegister, showEditTournament } = this.state;
 
     if (getCurrentUser()) {
       return (
@@ -102,9 +117,9 @@ class NavigationBar extends Component {
 
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ml-auto">
-              <Nav.Link as={NavLink} to="/tournaments">
-                Tournaments
-              </Nav.Link>
+              {/* Edited code */}
+              <Nav.Link onClick={() => this.showEditTournament()}>Tournaments </Nav.Link>
+              {/* End */}
               <Nav.Link onClick={() => this.showLogin()}>Login</Nav.Link>
               <Nav.Link onClick={() => this.showRegister()}>Register</Nav.Link>
             </Nav>
@@ -118,6 +133,11 @@ class NavigationBar extends Component {
         <Register
           show={showRegister}
           onClose={registered => this.hideRegister(registered)}
+        />
+        {/* Edited code */}
+        <Tournament
+          show = {showEditTournament}
+          onClose={edittounament => this.hideEditTournament(edittounament)}
         />
       </React.Fragment>
     );
