@@ -2,6 +2,7 @@ import firebase from "services/firebaseService";
 import { parseGameInfo } from "services/ClashRoyale";
 
 export function registerTourn(tourn_title, tourn_prize, tourn_time, tourn_url) {
+  // Creates Tournament with no players
   firebase
     .firestore()
     .collection("tourn")
@@ -21,6 +22,7 @@ export function registerTourn(tourn_title, tourn_prize, tourn_time, tourn_url) {
 }
 
 export function getBDInfo(folder = "tourn", id = "ad") {
+  // Prints a certains object's variables, must be called with obj's Database ID 
   firebase
     .firestore()
     .collection(folder)
@@ -39,6 +41,7 @@ export function getBDInfo(folder = "tourn", id = "ad") {
 }
 
 export function addPlayerToTourn(tournID = "CL1k1sf3fNOM4pc4GUvV", tag = "L8PYR99VP") {
+  // Updates a existing tournament with player information
   //CL1k1sf3fNOM4pc4GUvV
   var player1 = "LY8PJJ20"
   var player2 = "PPG909CJ"
@@ -63,6 +66,7 @@ export function addPlayerToTourn(tournID = "CL1k1sf3fNOM4pc4GUvV", tag = "L8PYR9
 }
 
 export function getTournaments() {
+  // Prints the Tournament's database ID and tourn's variables
   let a = firebase
     .firestore()
     .collection("tourn")
@@ -78,6 +82,7 @@ export function getTournaments() {
 }
 
 export function getUserIDs() {
+  // Prints the Users database ID and user's player tag
   let a = firebase
     .firestore()
     .collection("users")
@@ -91,6 +96,30 @@ export function getUserIDs() {
       console.log("Error getting document", err);
     });
 }
+
+export function checkForKey(collection = "tourn", sKey = "tag") {
+  // Prints "Key was found" when sKey finds it within certain collection
+  firebase
+    .firestore()
+    .collection(collection)
+    .doc(tournid)
+    .get()
+    .then(info => {
+      if (!info.exists) {
+        console.log("No such document!");
+      } else {
+        for (var key in info.data()) {
+          if (key === sKey) {
+            console.log("Key was found")
+          }
+        }  
+      }
+    })
+    .catch(err => {
+      console.log("Error getting document", err);
+    });
+  }
+
 
 export function checkWinner(player1, player2, gameID ="CL1k1sf3fNOM4pc4GUvV") {
   let battle = parseGameInfo(player1);
@@ -138,27 +167,3 @@ export function checkWinner(player1, player2, gameID ="CL1k1sf3fNOM4pc4GUvV") {
   //     });
   // }
 }
-
-export function checkBracketLvl(tournid = "CL1k1sf3fNOM4pc4GUvV") {
-  var lvl = []
-  firebase
-    .firestore()
-    .collection("tourn")
-    .doc(tournid)
-    .get()
-    .then(info => {
-      if (!info.exists) {
-        console.log("No such document!");
-      } else {
-        for (var key in info.data()) {
-          if (key === "tag") {
-            lvl.push(true);
-          }
-        }  
-      }
-    })
-    .catch(err => {
-      console.log("Error getting document", err);
-    });
-    return lvl;
-  }
