@@ -67,7 +67,7 @@ class NavigationBar extends Component {
             variant="dark"
           >
             <Navbar.Brand as={NavLink} exact to="/">
-              Room Finder
+              Clash Royal Automated Tournaments
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
@@ -96,7 +96,7 @@ class NavigationBar extends Component {
           variant="dark"
         >
           <Navbar.Brand as={NavLink} exact to="/">
-            Room Finder
+            Clash Royal Automated Tournaments
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
