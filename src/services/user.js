@@ -48,8 +48,6 @@ export function login(email, password) {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(data => {
-        console.log(data.user);
-
         firebase
           .firestore()
           .collection("users")

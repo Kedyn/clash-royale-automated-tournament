@@ -4,8 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import NotFoundPage from "components/pages/NotFoundPage";
 import HomePage from "components/pages/HomePage";
 import TournamentPage from "components/pages/tournament/TournamentPage";
-
-//import TournMaker from "components/pages/TournMaker";
+import AccountPage from "components/pages/AccountPage";
 
 import NavigationBar from "./components/layout/NavigationBar";
 
@@ -17,9 +16,8 @@ export default class App extends Component {
 
         <Switch>
           <Route path="/not-found" component={NotFoundPage} />
-          {/* Add Route to pages here */}
           <Route path="/tournament/:id" component={TournamentPage} />
-          {/* <Route path="/" exact component={TournMaker} /> */}
+          <Route path="/account" component={AccountPage} />
           <Route path="/" exact component={HomePage} />
           <Redirect to="/not-found" />
         </Switch>
