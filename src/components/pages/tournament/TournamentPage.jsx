@@ -3,6 +3,65 @@ import { Jumbotron, Container, Button } from "react-bootstrap";
 
 import Bracket from "./Bracket";
 
+function generateTournament(number_participants) {
+  const number_rounds = Math.ceil(Math.log2(number_participants));
+
+  let matches = Math.ceil(number_participants / 2) * 2;
+  let total_players = matches;
+  let rounds = [];
+
+  for (let round = 0; round < number_rounds; round++) {
+    matches /= 2;
+
+    let round_content = {
+      best: 1,
+      matches: []
+    };
+
+    for (let match = 0; match < matches; match++) {
+      let match_content = {
+        players: [
+          {
+            name: "",
+            score: -1
+          },
+          {
+            name: "",
+            score: -1
+          }
+        ]
+      };
+
+      round_content.matches.push(match_content);
+    }
+
+    rounds.push(round_content);
+  }
+
+  let participants_list = [];
+
+  for (let index = 0; index < number_participants; index++) {
+    participants.push("Player " + (index + 1));
+  }
+
+  for (let index = number_participants; index < total_players; index++) {
+    participants.push("BYE");
+  }
+
+  let tournament = {
+    title: "Test tournament",
+    host: getCurrentUser().tag,
+    participants: participants_list,
+    date: "2019-12-10",
+    prize: "Bragging rights",
+    url: "test",
+    rules: "No rules",
+    rounds
+  };
+
+  return tournament;
+}
+
 export default class TournamentPage extends Component {
   constructor(props) {
     super(props);
@@ -14,232 +73,7 @@ export default class TournamentPage extends Component {
 
   componentDidMount() {
     //this.props.history.push("/");
-    this.setState({
-      tournamnet: {
-        title: "Test Tournament",
-        host: "Host 1",
-        participants: [
-          "Player 1",
-          "Player 2",
-          "Player 3",
-          "Player 4",
-          "Player 5",
-          "Player 6",
-          "Player 7",
-          "Player 8",
-          "Player 9",
-          "Player 10",
-          "Player 11",
-          "Player 12",
-          "Player 13",
-          "Player 14",
-          "Player 15",
-          "Player 16"
-        ],
-        rounds: [
-          {
-            best: 1,
-            matches: [
-              {
-                players: [
-                  {
-                    name: "Player 1",
-                    score: 1
-                  },
-                  {
-                    name: "Player 2",
-                    score: 0
-                  }
-                ]
-              },
-              {
-                players: [
-                  {
-                    name: "Player 3",
-                    score: 1
-                  },
-                  {
-                    name: "Player 4",
-                    score: 0
-                  }
-                ]
-              },
-              {
-                players: [
-                  {
-                    name: "Player 5",
-                    score: 1
-                  },
-                  {
-                    name: "Player 6",
-                    score: 0
-                  }
-                ]
-              },
-              {
-                players: [
-                  {
-                    name: "Player 7",
-                    score: 1
-                  },
-                  {
-                    name: "Player 8",
-                    score: 0
-                  }
-                ]
-              },
-              {
-                players: [
-                  {
-                    name: "Player 9",
-                    score: 1
-                  },
-                  {
-                    name: "Player 10",
-                    score: 0
-                  }
-                ]
-              },
-              {
-                players: [
-                  {
-                    name: "Player 11",
-                    score: 1
-                  },
-                  {
-                    name: "Player 12",
-                    score: 0
-                  }
-                ]
-              },
-              {
-                players: [
-                  {
-                    name: "Player 13",
-                    score: 1
-                  },
-                  {
-                    name: "Player 14",
-                    score: 0
-                  }
-                ]
-              },
-              {
-                players: [
-                  {
-                    name: "Player 15",
-                    score: 1
-                  },
-                  {
-                    name: "Player 16",
-                    score: 0
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            best: 1,
-            matches: [
-              {
-                players: [
-                  {
-                    name: "Player 1",
-                    score: 1
-                  },
-                  {
-                    name: "Player 2",
-                    score: 0
-                  }
-                ]
-              },
-              {
-                players: [
-                  {
-                    name: "Player 3",
-                    score: 1
-                  },
-                  {
-                    name: "Player 4",
-                    score: 0
-                  }
-                ]
-              },
-              {
-                players: [
-                  {
-                    name: "Player 5",
-                    score: 1
-                  },
-                  {
-                    name: "Player 6",
-                    score: 0
-                  }
-                ]
-              },
-              {
-                players: [
-                  {
-                    name: "Player 7",
-                    score: 1
-                  },
-                  {
-                    name: "Player 8",
-                    score: 0
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            best: 3,
-            matches: [
-              {
-                players: [
-                  {
-                    name: "Player 1",
-                    score: 2
-                  },
-                  {
-                    name: "Player 3",
-                    score: 1
-                  }
-                ]
-              },
-              {
-                players: [
-                  {
-                    name: "Player 4",
-                    score: 2
-                  },
-                  {
-                    name: "Player 6",
-                    score: 0
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            best: 5,
-            matches: [
-              {
-                players: [
-                  {
-                    name: "Player 1",
-                    score: 0
-                  },
-                  {
-                    name: "Player 4",
-                    score: 0
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    });
+    this.setState({ tournamnet: generateTournament(this.props.match.id) });
   }
 
   render() {
