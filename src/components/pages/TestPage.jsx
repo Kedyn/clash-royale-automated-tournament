@@ -5,11 +5,11 @@ import { parseGameInfo } from "services/ClashRoyale";
 export default class TestPage extends Component {
   render() {
     // registerTourn("Super New Front End Tourn", "1 Billion Dollars", "18:25", "www.google.com");
-    // addPlayerToTourn(tournID);
+    // addPlayerToTourn("DQx0DnJyCY1gnu1grGbo");
     // getTournaments();
     // getUserIDs()
 
-    // parseGameInfo("L8PYR99VP", true)
+    parseGameInfo("L8PYR99VP", true)
     return <div></div>;
   }
 }

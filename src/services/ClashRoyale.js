@@ -34,11 +34,11 @@ export function getPlayerGames(playerName) {
   });
 }
 
-export function parseGameInfo(playerName  = "L8PYR99VP") {
+export function parseGameInfo(playerName  = "L8PYR99VP", all = false) {
   // the following will return an array, there fore we can use .forEach (a for loop) to get each element
   var info = new Array(0)
   getPlayerGames(playerName).then(battles => {
-
+      if (all){console.log(battles)}
     battles.forEach((battle, index) => {
       var battlestuff = []
       // console.log("Battle " + (index + 1) + ":");
@@ -67,6 +67,7 @@ export function parseGameInfo(playerName  = "L8PYR99VP") {
           info.push(battlestuff)
         }
       }); //End of recent battle's
+      console.log(info)
   }); // End of getPlayerGames()
   return info
 } // End of Function
