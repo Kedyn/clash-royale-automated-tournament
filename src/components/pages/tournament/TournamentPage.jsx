@@ -41,16 +41,16 @@ function generateTournament(number_participants) {
   let participants_list = [];
 
   for (let index = 0; index < number_participants; index++) {
-    participants.push("Player " + (index + 1));
+    participants_list.push("Player " + (index + 1));
   }
 
   for (let index = number_participants; index < total_players; index++) {
-    participants.push("BYE");
+    participants_list.push("BYE");
   }
 
   let tournament = {
     title: "Test tournament",
-    host: getCurrentUser().tag,
+    host: "Tester",
     participants: participants_list,
     date: "2019-12-10",
     prize: "Bragging rights",
