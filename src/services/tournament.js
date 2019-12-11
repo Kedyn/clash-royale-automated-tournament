@@ -67,23 +67,26 @@ export function addPlayerToTourn(tournID = "CL1k1sf3fNOM4pc4GUvV", tag = "L8PYR9
 
 export function getTournaments() {
   // Prints the Tournament's database ID and tourn's variables
-  let a = firebase
+  let a = []
+  firebase
     .firestore()
     .collection("tourn")
     .get()  
     .then(info => {
       info.docs.forEach(doc => {
         console.log(doc.id, doc.data());
+        a.push(doc.id, doc.data())
       })
     })
     .catch(err => {
       console.log("Error getting document", err);
     });
+        return a
 }
 
 export function getUserIDs() {
   // Prints the Users database ID and user's player tag
-  let a = firebase
+  firebase
     .firestore()
     .collection("users")
     .get()  
@@ -97,7 +100,7 @@ export function getUserIDs() {
     });
 }
 
-export function checkForKey(collection = "tourn", sKey = "tag") {
+export function checkForKey(collection = "tourn", tournid = "CL1k1sf3fNOM4pc4GUvV", sKey = "tag") {
   // Prints "Key was found" when sKey finds it within certain collection
   firebase
     .firestore()
@@ -125,8 +128,6 @@ export function checkWinner(player1, player2, gameID ="CL1k1sf3fNOM4pc4GUvV") {
   let battle = parseGameInfo(player1);
   let a = battle[0].property
   console.log(a)
-
-  
   
   // console.log(battles)
   // if (player2 === battles["opponentNam"]) {
