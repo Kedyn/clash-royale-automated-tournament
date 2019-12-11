@@ -260,7 +260,6 @@ export default class TournamentPage extends Component {
           <div>Created by {tournamnet.host}</div>
 
           <Container className="pt-4">
-            <Button variant="primary">Bracket</Button>
             <Button variant="primary">Participants</Button>
             <Button variant="primary">Settings</Button>
           </Container>

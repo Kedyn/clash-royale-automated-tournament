@@ -5,6 +5,12 @@ export default class Player extends Component {
   render() {
     const { data } = this.props;
 
+    let score = data.score;
+
+    if (score < 0) {
+      score = "";
+    }
+
     return (
       <React.Fragment>
         <Row className="p-0 text-light m-0">

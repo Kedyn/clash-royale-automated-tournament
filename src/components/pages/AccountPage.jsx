@@ -1,9 +1,32 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Table, Button } from "react-bootstrap";
+import TournamentEditor from "components/modals/TournamentEditor";
 
 export default class AccountPage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showTournamentEditor: false
+    };
+  }
+
+  showTournamentEditor() {
+    this.setState({ showTournamentEditor: true });
+  }
+
+  hideTournamentEditor(created, url) {
+    if (created) {
+      this.props.history.push("/tournament/" + url);
+    }
+
+    this.setState({ showTournamentEditor: false });
+  }
+
   render() {
+    const { showTournamentEditor } = this.state;
+
     return (
       <React.Fragment>
         <Container className="py-4">
@@ -42,7 +65,9 @@ export default class AccountPage extends Component {
 
               <Row className="mb-3">
                 <Col className="text-right">
-                  <Button>Create a tournament</Button>
+                  <Button onClick={() => this.showTournamentEditor()}>
+                    Create a tournament
+                  </Button>
                 </Col>
               </Row>
 
@@ -63,6 +88,12 @@ export default class AccountPage extends Component {
             </Col>
           </Row>
         </Container>
+
+        <TournamentEditor
+          show={showTournamentEditor}
+          update={false}
+          onClose={(created, url) => this.hideTournamentEditor(created, url)}
+        />
       </React.Fragment>
     );
   }
